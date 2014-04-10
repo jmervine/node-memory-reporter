@@ -5,13 +5,27 @@
  * http://us-east.manta.joyent.com/tjfontaine/public/walmart.graphs/standalone.js
  */
 
-module.exports = function reporter(check, wait, gcwait) {
-    check = check || 1000;
-    wait  = wait  || 10000;
+var util = require('util');
+
+module.exports = function reporter(options) {
+    options        = options        || {};
+    options.check  = options.check  || 1000;
+    options.report = options.report || 10000;
+
+    function report() {
+        var message = '[Memory Reporter] ' + util.format.apply(util, arguments);
+        if (options.log) {
+            var fs = require('fs');
+            return fs.appendFile(options.log, message+'\n', 'utf8');
+        }
+        console.log(message);
+    }
 
     if (typeof gc === 'function') {
-        gcwait = gcwait || 500;
-        setInterval(gc, gcwait);
+        options.gc = options.gc || 500;
+        setInterval(gc, options.gc);
+    } else {
+        report('Warning: with gc, these results will be far less useful, start node with \'--expose-gc\' to enable it.');
     }
 
     var max = 0;
@@ -19,14 +33,14 @@ module.exports = function reporter(check, wait, gcwait) {
         var mem = process.memoryUsage();
         if (mem.rss > max) {
             max = mem.rss;
-            console.log('[Memory Report] New max RSS: %d.', max);
+            report('New max RSS: %d.', max);
         }
-    }, check);
+    }, options.check);
 
     setInterval(function memInfoInterval() {
         var mem = process.memoryUsage();
-        console.log('[Memory Report] Current RSS: %d (Heap: %d total, %d used).',
+        report('Current RSS: %d (Heap: %d total, %d used).',
                         mem.rss, mem.heapTotal, mem.heapUsed);
-    }, wait);
+    }, options.report);
 };
 
