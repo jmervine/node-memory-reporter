@@ -5,9 +5,14 @@
  * http://us-east.manta.joyent.com/tjfontaine/public/walmart.graphs/standalone.js
  */
 
-module.exports = function reporter(check, wait) {
+module.exports = function reporter(check, wait, gcwait) {
     check = check || 1000;
     wait  = wait  || 10000;
+
+    if (typeof gc === 'function') {
+        gcwait = gcwait || 500;
+        setInterval(gc, gcwait);
+    }
 
     var max = 0;
     setInterval(function checkInterval() {
