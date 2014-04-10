@@ -3,14 +3,14 @@
 #### Install
 
 ```
-npm install git+https://github.com/jmervine/node-memory-report.git
+npm install git+https://github.com/jmervine/node-memory-reporter.git
 ```
 
 #### Usage
 
 ``` javascript
-// require('memory-report')([max check interval], [report wait interval]);
-require('memory-report')();
+// require('memory-reporter')([max check interval], [report wait interval]);
+require('memory-reporter')();
 ```
 
 Parmas:
