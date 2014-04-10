@@ -13,7 +13,7 @@ module.exports = function reporter(options) {
     options.report = options.report || 10000;
 
     function report() {
-        var message = '[Memory Reporter] ' + util.format.apply(util, arguments);
+        var message = util.format('[Memory Reporter ::%s] ', process.pid, util.format.apply(util, arguments));
         if (options.log) {
             var fs = require('fs');
             return fs.appendFile(options.log, message+'\n', 'utf8');
