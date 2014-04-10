@@ -19,14 +19,14 @@ module.exports = function reporter(check, wait, gcwait) {
         var mem = process.memoryUsage();
         if (mem.rss > max) {
             max = mem.rss;
-            console.log('[Memory Report] New max rss %d.', max);
+            console.log('[Memory Report] New max RSS: %d.', max);
         }
     }, check);
 
     setInterval(function memInfoInterval() {
         var mem = process.memoryUsage();
-        console.log('[Memory Report] %d rss / %d total heal / %d used heap.',
-                        mem.rss, mem.totalHeap, mem.usedHeap);
+        console.log('[Memory Report] Current RSS: %d (Heap: %d total, %d used).',
+                        mem.rss, mem.heapTotal, mem.heapUsed);
     }, wait);
 };
 

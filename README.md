@@ -20,14 +20,17 @@ var reporter = require('memory-reporter');
  * );
  *
  */
-reporter(); // defaults: 1000, 10000
+reporter(); // defaults: 1000, 10000, 500
 ```
 
 Parmas:
 
-* max check interval: interval between new max rss mem check.
-* report wait interval: interval between memory reports.
-* gc wait interval: interval between garbage collections, only
-  used if app is started with `--expose-gc` (e.g.
-  `node --expose-gc app.js`).
+* `max check interval`: 1000ms default
+  * interval between new max rss mem check.
+* `report wait interval`: 10000ms default
+  * interval between memory reports.
+* `gc wait interval`: 500ms default
+  * interval between garbage collections, only used if app is started with 
+    `--expose-gc` (e.g. `node --expose-gc app.js`).
+  
 
