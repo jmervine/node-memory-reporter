@@ -1,0 +1,14 @@
+{
+  "name": "memory-reporter",
+  "version": "0.0.1",
+  "description": "Report memory usage on an interval.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "keywords": [
+    "debugging"
+  ],
+  "author": "Joshua P. Mervine <joshua@mervine.net>",
+  "license": "MIT"
+}
